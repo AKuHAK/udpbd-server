@@ -142,13 +142,13 @@ int main(int argc, char * argv[])
                 {
                     struct SUDPBD_Packet * pkt = (struct SUDPBD_Packet *)buf;
                     uint32_t total_size = pkt->hdr.bd_count * 512;
-                    uint32_t offset = pkt->hdr.bd_par1 * 512;
+                    loff_t offset = (loff_t)pkt->hdr.bd_par1 * 512;
                     uint32_t size_left = total_size;
 
                     printf("UDPBD_CMD_READ(cmdId=%d, startSector=%d, sectorCount=%d)\n", pkt->hdr.bd_cmdid, pkt->hdr.bd_par1, pkt->hdr.bd_count);
 
                     // lseek to the requested file position
-                    lseek(fp, offset, SEEK_SET);
+                    lseek64(fp, offset, SEEK_SET);
 
                     // readahead 2x the requested size
                     readahead(fp, offset, total_size*2);
