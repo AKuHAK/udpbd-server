@@ -1,2 +1,3 @@
 *.o
 udpbd-server
+*.exe
