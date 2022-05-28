@@ -8,6 +8,12 @@
 
 #include "udpbd.h"
 
+#ifdef __APPLE__ & __MACH__
+#include <sys/types.h>
+#define lseek64 lseek
+#define loff_t off_t
+#define readahead(f, o, t) {fcntl(f, F_RDAHEAD, 1); read(f, o, t)};
+#endif
 
 #define BUFLEN  2048    //Max length of buffer
 
