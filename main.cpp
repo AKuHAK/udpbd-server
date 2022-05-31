@@ -12,7 +12,9 @@
 #include <sys/types.h>
 #define lseek64 lseek
 #define loff_t off_t
-#define readahead(f, o, t) {fcntl(f, F_RDAHEAD, 1); read(f, o, t);};
+#define readahead(f, o, t) {fcntl(f, F_RDAHEAD, 1); read(f, buf, t);};
+// #define readahead(f, o, t) fcntl(f, F_RDAHEAD, 1);
+// #define readahead(f, o, t) posix_fadvise(f, o, t, POSIX_FADV_WILLNEED);
 #endif
 
 #define BUFLEN  2048    //Max length of buffer
